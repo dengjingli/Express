@@ -83,13 +83,13 @@ public class ListActivity extends AppCompatActivity {
                     }
 
                     LogisticCode = jsonObject.getString("LogisticCode");
-                    Log.d(TAG, "LogisticCode: " + LogisticCode);
+                    Log.i(TAG, "LogisticCode: " + LogisticCode);
 
                     ShipperCode = jsonObject.getString("ShipperCode");
-                    Log.d(TAG, "ShipperCode: " + ShipperCode);
+                    Log.i(TAG, "ShipperCode: " + ShipperCode);
 
                     State = jsonObject.getString("State");
-                    Log.d(TAG, "State: " + State);
+                    Log.i(TAG, "State: " + State);
                     try {
                         StateToInt = Integer.parseInt(State);
                     } catch (Exception e) {
@@ -160,8 +160,26 @@ public class ListActivity extends AppCompatActivity {
 
     public void showInfo(){
         showTraceInfo();
-        String first  = times.get(0);
-        String last = times.get(times.size()-1);
+        if(ShipperCode.equals("STO")){
+            companyImg.setBackgroundResource(R.drawable.sto);
+        }else if(ShipperCode.equals("YTO")){
+            companyImg.setBackgroundResource(R.drawable.yto);
+        }else if(ShipperCode.equals("HTKY")){
+            companyImg.setBackgroundResource(R.drawable.htky);
+        }else if(ShipperCode.equals("HHTT")){
+            companyImg.setBackgroundResource(R.drawable.hhtt);
+        }
+        if(State.equals("0")){
+            stateText.setText("暂无轨迹信息");
+        }else if(State.equals("1")){
+            stateText.setText("已揽收");
+        }else if(State.equals("2")){
+            stateText.setText("正在运送");
+        }else if(State.equals("3")){
+            stateText.setText("已签收");
+        }else if(State.equals("4")){
+            stateText.setText("问题件");
+        }
         search_Num.setText(LogisticCode);
 
     }

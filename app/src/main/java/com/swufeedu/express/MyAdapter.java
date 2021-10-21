@@ -44,9 +44,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     //滚动到这里加载
     @Override
     public void onBindViewHolder(ViewHolder holder,int position){
-        Item loadTrace = myItems.get(position);
-        holder.station.setText(loadTrace.getStation());
-        holder.time.setText(loadTrace.getTime());
+        Item itemList = myItems.get(position);
+        holder.station.setText(itemList.getStation());
+        holder.time.setText(itemList.getTime());
     }
 
 
