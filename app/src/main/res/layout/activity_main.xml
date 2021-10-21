@@ -23,16 +23,25 @@
             app:srcCompat="@mipmap/back"
             tools:ignore="SpeakableTextPresentCheck" />
 
+        <Spinner
+            android:id="@+id/delivery_company_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/image_back"
+            android:entries="@array/delivery_company"
+            android:minHeight="48dp" />
+
+
         <EditText
             android:id="@+id/search_text"
-            android:layout_width="320dp"
-            android:layout_height="54dp"
+            android:layout_width="212dp"
+            android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@id/image_back"
+            android:layout_marginLeft="1dp"
+            android:layout_toRightOf="@id/delivery_company_spinner"
             android:hint="查快递，点这里~"
             android:minHeight="48dp"
-            android:paddingLeft="20dp"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
             android:textSize="16sp">
@@ -45,9 +54,10 @@
             android:layout_width="81dp"
             android:layout_height="48dp"
             android:layout_alignParentRight="true"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
-            android:layout_marginRight="1dp"
-            android:onClick="onClick"
+            android:layout_toLeftOf="@id/search_text"
+            android:onClick="submit"
             android:src="@mipmap/search"
             tools:ignore="SpeakableTextPresentCheck" />
     </RelativeLayout>

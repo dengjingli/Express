@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="delivery_company">
+        <item>STO</item>
+        <item>YTO</item>
+        <item>HTKY</item>
+        <item>HHTT</item>
+    </string-array>
+</resources>

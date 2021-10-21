@@ -71,35 +71,58 @@ import java.security.MessageDigest;
 public class KdApiSearchDemo {
 
     //用户ID，快递鸟提供，注意保管，不要泄漏
-    private String EBusinessID="1237100";//即用户ID，登录快递鸟官网会员中心获取 https://www.kdniao.com/UserCenter/v4/UserHome.aspx
+    private String EBusinessID="1734494";//即用户ID，登录快递鸟官网会员中心获取 https://www.kdniao.com/UserCenter/v4/UserHome.aspx
     //API key，快递鸟提供，注意保管，不要泄漏
-    private String ApiKey="56da2cf8-c8a2-44b2-b6fa-476cd7d1ba17";//即API key，登录快递鸟官网会员中心获取 https://www.kdniao.com/UserCenter/v4/UserHome.aspx
+    private String ApiKey="8db603b8-48da-49e1-b477-892acd69b3dc";//即API key，登录快递鸟官网会员中心获取 https://www.kdniao.com/UserCenter/v4/UserHome.aspx
     //请求url, 正式环境地址
     private String ReqURL="https://api.kdniao.com/Ebusiness/EbusinessOrderHandle.aspx";
 
 
 
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         try {
             KdApiSearchDemo api = new KdApiSearchDemo();
             System.out.println(api.orderOnlineByJson());
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }*/
+    public String returnDataFromkdniao(String companyCode , String num) {
+        try {
+            KdApiSearchDemo api = new KdApiSearchDemo();
+            String result = api.orderOnlineByJson(companyCode, num);
+            //Log.d("MainActivity", result);
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return "调用失败";
     }
 
 
 
+
     //即时查询接口
-    public String orderOnlineByJson() throws Exception{
+    public String orderOnlineByJson(String companyCode, String num) throws Exception{
         // 组装应用级参数
+        /*
         String RequestData= "{"+
                 "'CustomerName': '',"+
                 "'OrderCode': '',"+
                 "'ShipperCode': 'YTO',"+
                 "'LogisticCode': 'YT00003618100',"+
                 "}";
+         */
+        String RequestData= "{"+
+                "'CustomerName': '',"+
+                "'OrderCode': '',"+
+                "'ShipperCode':'" + companyCode + "',"+
+                "'LogisticCode':'" + num + "',"+
+                "}";
+
+
         // 组装系统级参数
         Map<String,String> params = new HashMap<String,String>();
         params.put("RequestData", urlEncoder(RequestData, "UTF-8"));
