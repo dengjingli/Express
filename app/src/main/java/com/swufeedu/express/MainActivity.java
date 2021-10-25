@@ -22,6 +22,7 @@ import com.swufeedu.express.db.DBManager;
 import com.swufeedu.express.db.InfoItem;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemLongClickListener{
@@ -93,13 +94,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         Log.i(TAG,"onItemLongClick,长按列表项positions="+position);
         AlertDialog.Builder builder=new AlertDialog.Builder(this);
         builder.setTitle("提示")
-                .setMessage("请确认是否删除当前数据")
+                .setMessage("不显示当前数据")
                 .setPositiveButton("是", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Log.i(TAG,"onclick:对话框事件处理");
                         DBManager dbManager = new DBManager(MainActivity.this);
                         infoList= dbManager.listAll();
+
                         infoList.remove(position);
                         adapter = new MainAdapter(MainActivity.this, R.layout.info_item, infoList);
                         listView.setAdapter(adapter);
