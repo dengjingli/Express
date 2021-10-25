@@ -15,6 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.swufeedu.express.Util.KdApiSearchDemo;
+import com.swufeedu.express.db.DBManager;
+import com.swufeedu.express.db.InfoItem;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -41,6 +43,8 @@ public class ListActivity extends AppCompatActivity {
     private TextView stateText;
     private TextView search_Num;
 
+    private List<InfoItem> infoList = new ArrayList<InfoItem>();//数据库
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -61,12 +65,13 @@ public class ListActivity extends AppCompatActivity {
         Log.i(TAG, "code  "+ code);
         Log.i(TAG, "number  " + num);
 
+
+
         new Thread(new Runnable() {
-
-
             @Override
             public void run() {
                 try {
+
                     Log.i(TAG, "run: run()......");
                     KdApiSearchDemo api = new KdApiSearchDemo();
                     String respond = api.orderOnlineByJson(code, num);
@@ -116,8 +121,8 @@ public class ListActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-
                             showInfo();
+
                         }
                     });
 
@@ -129,12 +134,9 @@ public class ListActivity extends AppCompatActivity {
                             showDefaultInfo();
                         }
                     });
-
-
                 }
-
             }
-        }).start();//runable
+        }).start();
     }
 
     public void initItem(){
@@ -192,6 +194,11 @@ public class ListActivity extends AppCompatActivity {
 
     public void save(View btn) {
         //返回时添加到数据库
+        InfoItem infoItem = new InfoItem(ShipperCode,LogisticCode,State);
+        infoList.add(infoItem);
+        Log.i("db","添加记录："+ShipperCode+LogisticCode+State);
+        DBManager dbManager = new DBManager(ListActivity.this);
+        dbManager.addAll(infoList);
         Intent intent = new Intent(this,MainActivity.class);
         startActivity(intent);
     }
