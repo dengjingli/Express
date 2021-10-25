@@ -5,9 +5,11 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -186,6 +188,12 @@ public class ListActivity extends AppCompatActivity {
     public void showDefaultInfo(){
         search_Num.setText("暂无");
         Toast.makeText(this, "请输入正确信息", Toast.LENGTH_SHORT).show();
+    }
+
+    public void save(View btn) {
+        //返回时添加到数据库
+        Intent intent = new Intent(this,MainActivity.class);
+        startActivity(intent);
     }
 
 
