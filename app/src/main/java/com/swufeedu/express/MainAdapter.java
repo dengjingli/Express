@@ -3,11 +3,15 @@ package com.swufeedu.express;
 
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -59,6 +63,7 @@ public class MainAdapter extends ArrayAdapter {
         }else if(infoList.getCurName().equals("HHTT")){
             companyImg.setBackgroundResource(R.drawable.hhtt);
         }
+
 
         return view;
     }

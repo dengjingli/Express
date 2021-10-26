@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemLongClickListener{
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener,AdapterView.OnItemLongClickListener{
     private Spinner companySpinner;
     private EditText searchText;
     private RecyclerView recyclerView;
@@ -72,6 +72,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         startActivity(intent);
 
     }
+
+
     public void refresh(View btn) {
         //准备请求参数
         DBManager dbManager = new DBManager(MainActivity.this);
@@ -80,6 +82,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         Log.i(TAG,"SUCC");
         adapter = new MainAdapter(MainActivity.this, R.layout.info_item, infoList);
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(MainActivity.this);
         listView.setOnItemLongClickListener(MainActivity.this);
 //        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
 //        adapter = new InfoAdapter(infoList);
@@ -90,23 +93,43 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        ListView list_view =(ListView) parent;
+        InfoItem info_item  = (InfoItem) list_view.getItemAtPosition(position);
+        Log.i(TAG, "点击事件");
+        final String companyCode = info_item.getCurName();
+        final String num = info_item.getCurNum();
+        Log.i(TAG, "companyCode = "+ companyCode);
+        Log.i(TAG, "num = " + num);
+        SharedPreferences.Editor editor =  getSharedPreferences("data",MODE_PRIVATE).edit();
+        editor.putString("code",companyCode);
+        editor.putString("number",num);
+        editor.apply();
+        Intent intent = new Intent(this,ListActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
     public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long id) {
-        Log.i(TAG,"onItemLongClick,长按列表项positions="+position);
+        ListView lview =(ListView) adapterView;
+        InfoItem infoitem  = (InfoItem) lview.getItemAtPosition(position);
         AlertDialog.Builder builder=new AlertDialog.Builder(this);
         builder.setTitle("提示")
-                .setMessage("不显示当前数据")
+                .setMessage("确认删除该历史数据后无法找回")
                 .setPositiveButton("是", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Log.i(TAG,"onclick:对话框事件处理");
                         DBManager dbManager = new DBManager(MainActivity.this);
+//                        String delete_num=infoitem.getCurNum();
+//                        dbManager.deleteByNum(delete_num);
+                        int delete_num=infoitem.getId();
+                        dbManager.delete(delete_num);
                         infoList= dbManager.listAll();
-
-                        infoList.remove(position);
+                        Log.i(TAG,"删除成功："+delete_num);
                         adapter = new MainAdapter(MainActivity.this, R.layout.info_item, infoList);
                         listView.setAdapter(adapter);
-                        //dbManager.delete(position);
-                        //adapter.notifyDataSetChanged();
+                        listView.setOnItemLongClickListener(MainActivity.this);
                     }
                 }).setNegativeButton("否",null);
         builder.create().show();

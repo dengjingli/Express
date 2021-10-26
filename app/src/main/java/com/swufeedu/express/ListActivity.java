@@ -195,10 +195,12 @@ public class ListActivity extends AppCompatActivity {
     public void save(View btn) {
         //返回时添加到数据库
         InfoItem infoItem = new InfoItem(ShipperCode,LogisticCode,State);
-        infoList.add(infoItem);
+        //infoList.add(infoItem);
         Log.i("db","添加记录："+ShipperCode+LogisticCode+State);
         DBManager dbManager = new DBManager(ListActivity.this);
-        dbManager.addAll(infoList);
+        //dbManager.addAll(infoList);
+        //dbManager.add(infoItem);
+        dbManager.insertOrUpdateInfo(infoItem);
         Intent intent = new Intent(this,MainActivity.class);
         startActivity(intent);
     }

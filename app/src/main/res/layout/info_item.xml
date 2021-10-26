@@ -2,6 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:descendantFocusability="blocksDescendants"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -9,6 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="1dp"
+
+        android:background="@color/white"
 
         android:padding="20dp">
 
@@ -41,7 +46,8 @@
             android:layout_marginTop="31dp"
             android:layout_toRightOf="@+id/company_img_item"
             android:text="快递单号"
-            android:textSize="17sp" />
+            android:textStyle="bold"
+            android:textSize="18sp" />
 
 
     </RelativeLayout>
