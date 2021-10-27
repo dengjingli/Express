@@ -28,9 +28,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener,AdapterView.OnItemLongClickListener{
     private Spinner companySpinner;
     private EditText searchText;
-    private RecyclerView recyclerView;
     ListView listView;
-    //private InfoAdapter adapter;
     private MainAdapter adapter;
     final String TAG = "MAinActivity";
 
@@ -46,11 +44,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         companySpinner = (Spinner) findViewById(R.id.delivery_company_spinner);
         searchText = (EditText) findViewById(R.id.search_text);
-        //recyclerView  =(RecyclerView)findViewById(R.id.recycle_view);
 
     }
     public void submit(View btn) {
-        //准备请求参数
         int selectedPosition = companySpinner.getSelectedItemPosition();
         final String companyCode = getResources().getStringArray(R.array.delivery_company)[selectedPosition];
         final String num = searchText.getText().toString();
@@ -75,7 +71,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
 
     public void refresh(View btn) {
-        //准备请求参数
         DBManager dbManager = new DBManager(MainActivity.this);
         //dbManager.deleteAll();
         infoList = dbManager.listAll();
@@ -84,12 +79,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(MainActivity.this);
         listView.setOnItemLongClickListener(MainActivity.this);
-//        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-//        adapter = new InfoAdapter(infoList);
-//        recyclerView.setLayoutManager(layoutManager);
-//        recyclerView.addItemDecoration(new DividerItemDecoration(this,
-//                DividerItemDecoration.VERTICAL));
-//        recyclerView.setAdapter(adapter);
     }
 
     @Override
@@ -121,8 +110,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     public void onClick(DialogInterface dialog, int which) {
                         Log.i(TAG,"onclick:对话框事件处理");
                         DBManager dbManager = new DBManager(MainActivity.this);
-//                        String delete_num=infoitem.getCurNum();
-//                        dbManager.deleteByNum(delete_num);
                         int delete_num=infoitem.getId();
                         dbManager.delete(delete_num);
                         infoList= dbManager.listAll();

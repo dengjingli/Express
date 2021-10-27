@@ -1,4 +1,7 @@
 package com.swufeedu.express.db;
+/***
+ * 参考老师的代码
+ */
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

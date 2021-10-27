@@ -1,5 +1,7 @@
 package com.swufeedu.express.db;
-
+/***
+ * 参考老师的代码
+ */
 
 import java.util.ArrayList;
 import java.util.List;
@@ -112,31 +114,21 @@ public class DBManager {
         return infoItem;
     }
 
-    public boolean insertOrUpdateInfo(InfoItem item){
+    public void insertOrUpdateInfo(InfoItem item){
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        
-        Cursor cursor = db.query(
-                TBNAME,
-                null,
-                "CURNUM=?", new String[]{String.valueOf(item.getCurNum())},
-                null,
-                null,
-                null);
-
-
+        Cursor cursor = db.query(TBNAME, null, "CURNUM=?", new String[]{String.valueOf(item.getCurNum())}, null, null, null);
         ContentValues values = new ContentValues();
         values.put("curname", item.getCurName());
         values.put("curnum", item.getCurNum());
         values.put("curstate", item.getCurState());
-        long result = 0;
         try {
-            if (cursor != null && cursor.getCount() > 0) {
+            if (cursor!=null&&cursor.getCount()>0) {
                 //更新操作
-                result = db.update(TBNAME, values, "CURNUM=?", new String[]{String.valueOf(item.getCurNum())});
+                db.update(TBNAME, values, "CURNUM=?", new String[]{String.valueOf(item.getCurNum())});
                 Log.i(TAG,"更新操作"+item.getCurNum());
             }else{
                 //插入操作
-                result =db.insert(TBNAME, null, values);
+                db.insert(TBNAME, null, values);
                 Log.i(TAG,"插入操作"+item.getCurNum());
             }
         } catch (Exception e) {
@@ -147,10 +139,6 @@ public class DBManager {
             }
             db.close();
         }
-
-        return result > 0;
-
     }
-
 }
 

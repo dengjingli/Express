@@ -1,5 +1,7 @@
 package com.swufeedu.express.Util;
-
+/***
+ * 来源快递鸟官网下载地址：http://www.kdniao.com/file/KdApiSearchDemo(JAVA).rar
+ */
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -92,7 +94,7 @@ public class KdApiSearchDemo {
         try {
             KdApiSearchDemo api = new KdApiSearchDemo();
             String result = api.orderOnlineByJson(companyCode, num);
-            //Log.d("MainActivity", result);
+            //Log.i("MainActivity", result);
             return result;
         } catch (Exception e) {
             e.printStackTrace();

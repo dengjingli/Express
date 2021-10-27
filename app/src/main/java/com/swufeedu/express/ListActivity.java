@@ -65,7 +65,11 @@ public class ListActivity extends AppCompatActivity {
         Log.i(TAG, "code  "+ code);
         Log.i(TAG, "number  " + num);
 
-
+/***
+ * 结构参考：
+ * Android解析网络数据 JSONObject与GSON
+ * https://blog.csdn.net/Blue3Red1/article/details/108656853
+ */
 
         new Thread(new Runnable() {
             @Override
@@ -122,11 +126,9 @@ public class ListActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             showInfo();
-
                         }
                     });
-
-                }//is
+                }
                 else {
                     runOnUiThread(new Runnable() {
                         @Override
@@ -139,19 +141,13 @@ public class ListActivity extends AppCompatActivity {
         }).start();
     }
 
-    public void initItem(){
-
-        for(int i =0;i < times.size();i++){
-
-            Item item = new Item(stations.get(i),times.get(i));
-            items.add(item);
-
-        }
-
-    }
 
     public void showTraceInfo(){
-        initItem();
+        for(int i =0;i < times.size();i++){
+            Item item = new Item(stations.get(i),times.get(i));
+            items.add(item);
+        }
+
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         MyAdapter adapter = new MyAdapter(items);
         recyclerView.setLayoutManager(layoutManager);
@@ -198,12 +194,8 @@ public class ListActivity extends AppCompatActivity {
         //infoList.add(infoItem);
         Log.i("db","添加记录："+ShipperCode+LogisticCode+State);
         DBManager dbManager = new DBManager(ListActivity.this);
-        //dbManager.addAll(infoList);
-        //dbManager.add(infoItem);
         dbManager.insertOrUpdateInfo(infoItem);
         Intent intent = new Intent(this,MainActivity.class);
         startActivity(intent);
     }
-
-
 }

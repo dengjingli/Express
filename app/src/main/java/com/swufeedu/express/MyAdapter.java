@@ -1,6 +1,7 @@
 package com.swufeedu.express;
-
-import android.content.Context;
+/***
+ * 参考老师的代码
+ */
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +43,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     }
 
 
-    //滚动到这里加载
     @Override
     public void onBindViewHolder(ViewHolder holder,int position){
         Item itemList = myItems.get(position);
